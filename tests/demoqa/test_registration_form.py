@@ -7,7 +7,7 @@ import allure
 def test_for_demoqa():
     with allure.step('Open form'):
         browser.open('https://demoqa.com/automation-practice-form')
-        browser.element('.Consent').click()
+        # browser.element('.Consent').click()
 
     with allure.step('Fill form user data'):
         browser.element('#firstName').type('Светлана')

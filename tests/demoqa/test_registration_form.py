@@ -1,41 +1,47 @@
+from selene import browser, be, have, by
+import os
 import allure
-from selene import have, by
 
 
-@allure.title("Successful fill form")
-def test_successful(setup_browser):
-    browser = setup_browser
-    first_name = "Alex"
-    last_name = "Egorov"
+@allure.title("Registration form")
+def test_for_demoqa():
+    with allure.step('Open form'):
+        browser.open('https://demoqa.com/automation-practice-form')
 
-    with allure.step("Open registrations form"):
-        browser.open("https://demoqa.com/automation-practice-form")
-        browser.element(".practice-form-wrapper").should(have.text("Student Registration Form"))
-        browser.driver.execute_script("$('footer').remove()")
-        browser.driver.execute_script("$('#fixedban').remove()")
+    with allure.step('Fill form user data'):
+        browser.element('#firstName').type('Светлана')
+        browser.element('#lastName').type('Федоровна')
+        browser.element('#userEmail').type('bethere@example.com')
+        browser.element('[for=gender-radio-2]').click()
+        browser.element('#userNumber').type('7909555678')
+        browser.element('#dateOfBirthInput').click()
+        browser.element('.react-datepicker__year-select').click().element(by.text('1993')).click()
+        browser.element('.react-datepicker__month-select').click().element(by.text('May')).click()
+        browser.element('.react-datepicker__day--022').click()
+        browser.element('#subjectsInput').should(be.blank).type('english')
+        browser.element('#react-select-2-option-0').click()
+        browser.element('.subjects-auto-complete__multi-value__label').should(have.text('English'))
 
-    with allure.step("Fill form"):
-        browser.element("#firstName").set_value(first_name)
-        browser.element("#lastName").set_value(last_name)
-        browser.element("#userEmail").set_value("alex@egorov.com")
-        browser.element("#genterWrapper").element(by.text("Other")).click()
-        browser.element("#userNumber").set_value("1231231230")
-        # browser.element("#dateOfBirthInput").click()
-        # browser.element(".react-datepicker__month-select").s("July")
-        # browser.element(".react-datepicker__year-select").selectOption("2008")
-        # browser.element(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click()
-        browser.element("#subjectsInput").send_keys("Maths")
-        browser.element("#subjectsInput").press_enter()
-        browser.element("#hobbiesWrapper").element(by.text("Sports")).click()
-        # browser.element("#uploadPicture").uploadFromClasspath("img/1.png")
-        browser.element("#currentAddress").set_value("Some street 1")
-        browser.element("#state").click()
-        browser.element("#stateCity-wrapper").element(by.text("NCR")).click()
-        browser.element("#city").click()
-        browser.element("#stateCity-wrapper").element(by.text("Delhi")).click()
-        browser.element("#submit").click()
+    with allure.step('Fill form user other data'):
+        browser.element('[for="hobbies-checkbox-1"]').click()
+        browser.element('#uploadPicture').send_keys(os.path.abspath('111.png'))
+        browser.element('#currentAddress').type('Ленина 139')
+        browser.element('#react-select-3-input').type('Haryana').press_enter()
+        browser.element('#react-select-4-input').type('Karnal').press_enter()
+        browser.element('#submit').press_enter()
 
-    with allure.step("Check form results"):
-        browser.element("#example-modal-sizes-title-lg").should(have.text("Thanks for submitting the form"))
-        # browser.element(".table-responsive").should(
-        #     have.texts(first_name, last_name, "alex@egorov.com", "Some street 1"))
+    with allure.step('Check form'):
+        browser.element('#example-modal-sizes-title-lg').should(have.exact_text('Thanks for submitting the form'))
+        browser.element('.table').all('td:nth-child(2)').should(have.texts(
+            'Светлана Федоровна',
+            'bethere@example.com',
+            'Female',
+            '7909555678',
+            '22 May,1993',
+            'English',
+            'Sports',
+            '111.png',
+            'Ленина 139',
+            'Haryana Karnal'
+        ))
+        browser.element('#closeLargeModal').press_enter()

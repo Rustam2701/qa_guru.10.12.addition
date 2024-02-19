@@ -1,7 +1,6 @@
 from selene import browser, be, have, by
-import os
 import allure
-
+import resource
 
 @allure.title("Registration form")
 def test_for_demoqa():
@@ -25,7 +24,7 @@ def test_for_demoqa():
 
     with allure.step('Fill form user other data'):
         browser.element('[for="hobbies-checkbox-1"]').click()
-        browser.element('#uploadPicture').send_keys(os.path.abspath('111.png'))
+        browser.element('#uploadPicture').send_keys(resource.path('111.png'))
         browser.element('#currentAddress').type('Ленина 139')
         browser.element('#react-select-3-input').type('Haryana').press_enter()
         browser.element('#react-select-4-input').type('Karnal').press_enter()

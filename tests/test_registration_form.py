@@ -31,10 +31,14 @@ def test_for_demoqa():
     with allure.step('Fill form user other data'):
         browser.element('[for="hobbies-checkbox-1"]').click()
         browser.element('#uploadPicture').send_keys(resource.path('111.png'))
-        browser.element('#currentAddress').type('Ленина 139')
-        browser.element('#react-select-3-input').type('Haryana').press_enter()
-        browser.element('#react-select-4-input').type('Karnal').press_enter()
-        browser.element('#submit').press_enter()
+        browser.element('#currentAddress').type('Ленина 139').\
+            execute_script("element.scrollIntoView(true);")
+        browser.element('#react-select-3-input').type('Haryana').press_enter().\
+            execute_script("element.scrollIntoView(true);")
+        browser.element('#react-select-4-input').type('Karnal').press_enter().\
+            execute_script("element.scrollIntoView(true);")
+        browser.element('#submit').press_enter().\
+            execute_script("element.scrollIntoView(true);")
 
     with allure.step('Check form'):
         browser.element('#example-modal-sizes-title-lg').should(have.exact_text('Thanks for submitting the form'))

@@ -25,19 +25,17 @@ def test_for_demoqa():
         browser.element('.react-datepicker__month-select').click().element(by.text('May')).click()
         browser.element('.react-datepicker__day--022').click()
         browser.element('#subjectsInput').should(be.blank).type('English').press_enter()
-        # browser.element('#react-select-2-option-0').perform(command.js.click)
-        # browser.element('.subjects-auto-complete__multi-value__label').should(have.text('English'))
 
     with allure.step('Fill form user other data'):
         browser.element("#hobbiesWrapper").element(by.text("Sports")).click()
         browser.element('#uploadPicture').send_keys(resource.path('111.png'))
-        browser.element('#currentAddress').type('Ленина 139').\
+        browser.element('#currentAddress').type('Ленина 139'). \
             execute_script("element.scrollIntoView(true);")
-        browser.element('#react-select-3-input').type('Haryana').press_enter().\
+        browser.element('#react-select-3-input').type('Haryana').press_enter(). \
             execute_script("element.scrollIntoView(true);")
-        browser.element('#react-select-4-input').type('Karnal').press_enter().\
+        browser.element('#react-select-4-input').type('Karnal').press_enter(). \
             execute_script("element.scrollIntoView(true);")
-        browser.element('#submit').press_enter().\
+        browser.element('#submit').press_enter(). \
             execute_script("element.scrollIntoView(true);")
 
     with allure.step('Check form'):

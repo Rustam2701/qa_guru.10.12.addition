@@ -25,7 +25,7 @@ def test_for_demoqa():
         browser.element('.react-datepicker__month-select').click().element(by.text('May')).click()
         browser.element('.react-datepicker__day--022').click()
         browser.element('#subjectsInput').should(be.blank).type('english')
-        browser.element('#react-select-2-option-0').click().perform()
+        browser.element('#react-select-2-option-0').click().perform(command.js.click)
         browser.element('.subjects-auto-complete__multi-value__label').should(have.text('English'))
 
     with allure.step('Fill form user other data'):

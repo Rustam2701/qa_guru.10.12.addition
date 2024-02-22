@@ -29,7 +29,7 @@ def test_for_demoqa():
         # browser.element('.subjects-auto-complete__multi-value__label').should(have.text('English'))
 
     with allure.step('Fill form user other data'):
-        browser.element('[for="hobbies-checkbox-1"]').click()
+        browser.element("#hobbiesWrapper").element(by.text("Sports")).click()
         browser.element('#uploadPicture').send_keys(resource.path('111.png'))
         browser.element('#currentAddress').type('Ленина 139').\
             execute_script("element.scrollIntoView(true);")

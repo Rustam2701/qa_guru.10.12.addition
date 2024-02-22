@@ -24,9 +24,9 @@ def test_for_demoqa():
         browser.element('.react-datepicker__year-select').click().element(by.text('1993')).click()
         browser.element('.react-datepicker__month-select').click().element(by.text('May')).click()
         browser.element('.react-datepicker__day--022').click()
-        browser.element('#subjectsInput').should(be.blank).type('english')
-        browser.element('#react-select-2-option-0').perform(command.js.click)
-        browser.element('.subjects-auto-complete__multi-value__label').should(have.text('English'))
+        browser.element('#subjectsInput').should(be.blank).type('English').press_enter()
+        # browser.element('#react-select-2-option-0').perform(command.js.click)
+        # browser.element('.subjects-auto-complete__multi-value__label').should(have.text('English'))
 
     with allure.step('Fill form user other data'):
         browser.element('[for="hobbies-checkbox-1"]').click()

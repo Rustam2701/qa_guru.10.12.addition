@@ -163,3 +163,5 @@ cython_debug/
 allure-results/
 
 .env/
+
+notifications
